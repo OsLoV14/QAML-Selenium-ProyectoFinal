@@ -1,13 +1,30 @@
 package Pages;
 
-import Elements.CartElements;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class CartPage extends BasePage {
 
-    protected CartElements byElements = new CartElements();
+    @FindBy(css = "tr[class='success']>td:nth-child(1)")
+    private WebElement productImage;
+
+    @FindBy(css = "tr[class='success']>td:nth-child(2)")
+    private WebElement productTitle;
+
+    @FindBy(css = "tr[class='success']>td:nth-child(3)")
+    private WebElement productPrice;
+
+    @FindBy(css = "tr[class='success']>td:nth-child(4)")
+    private WebElement deleteButton;
+
+    @FindBy(css = "div[class='col-lg-1']")
+    private WebElement totalPrice;
+
+    @FindBy(css = "button[class='btn btn-success']")
+    private WebElement placeOrderButton;
 
     public CartPage(WebDriver driver) {
         super(driver);
@@ -15,7 +32,7 @@ public class CartPage extends BasePage {
 
     public boolean isPagePresent() {
         try {
-            getFluentWait(60, 5).until(ExpectedConditions.visibilityOfElementLocated(byElements.productTitle));
+            getFluentWait(120, 3).until(ExpectedConditions.visibilityOf(productTitle));
             return true;
         }
         catch (TimeoutException e) {
@@ -24,34 +41,30 @@ public class CartPage extends BasePage {
     }
 
     public boolean validateImage() {
-        return driver.findElement(byElements.productImage).isDisplayed();
+        return productImage.isDisplayed();
     }
 
     public boolean validateTitle() {
-        String title = driver.findElement(byElements.productTitle).getText();
-        System.out.println(title);
-        return driver.findElement(byElements.productTitle).isDisplayed();
+        System.out.println(productTitle.getText());
+        return productTitle.isDisplayed();
     }
 
     public boolean validatePrice() {
-        String price = driver.findElement(byElements.productPrice).getText();
-        System.out.println(price);
-        return driver.findElement(byElements.productPrice).isDisplayed();
+        System.out.println(productPrice.getText());
+        return productPrice.isDisplayed();
     }
 
     public boolean validateDeleteLink() {
-        String deleteLink = driver.findElement(byElements.deleteButton).getText();
-        System.out.println(deleteLink);
-        return driver.findElement(byElements.deleteButton).isDisplayed();
+        System.out.println(deleteButton.getText());
+        return deleteButton.isDisplayed();
     }
 
     public boolean validateTotalPrice() {
-        String totalPrice = driver.findElement(byElements.totalPrice).getText();
-        System.out.println(totalPrice);
-        return driver.findElement(byElements.totalPrice).isDisplayed();
+        System.out.println(totalPrice.getText());
+        return totalPrice.isDisplayed();
     }
 
     public void placeOrderButton() {
-        driver.findElement(byElements.placeOrderButton).click();
+        placeOrderButton.click();
     }
 }

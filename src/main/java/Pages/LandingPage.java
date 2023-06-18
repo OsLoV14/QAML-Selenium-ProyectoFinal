@@ -1,13 +1,18 @@
 package Pages;
 
-import Elements.LandingElements;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LandingPage extends BasePage {
 
-    protected LandingElements byElements = new LandingElements();
+    @FindBy(id = "navbarExample")
+    private WebElement navigationBar;
+
+    @FindBy(css = "a[href*='prod.html?idp_=1']")
+    private WebElement samsungGalaxyS6;
 
     public LandingPage(WebDriver driver) {
         super(driver);
@@ -16,7 +21,7 @@ public class LandingPage extends BasePage {
 
     public boolean isPagePresent() {
         try {
-            getFluentWait(60, 5).until(ExpectedConditions.visibilityOfElementLocated(byElements.navigationBar));
+            getFluentWait(120, 3).until(ExpectedConditions.visibilityOf(navigationBar));
             return true;
         }
         catch (TimeoutException e) {
@@ -25,6 +30,6 @@ public class LandingPage extends BasePage {
     }
 
     public void selectElementSamsungGalaxyS6() {
-        driver.findElement(byElements.samsungGalaxyS6).click();
+        samsungGalaxyS6.click();
     }
 }

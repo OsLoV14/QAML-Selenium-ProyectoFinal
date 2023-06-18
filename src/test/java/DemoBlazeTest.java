@@ -6,7 +6,8 @@ import org.testng.annotations.Test;
 
 public class DemoBlazeTest extends BaseTest {
 
-    @Test
+    @Test(description = "Happy path para  validar la información un producto de la página, acceder al detalle del mismo," +
+            "agregarlo al carrito de compras y validar que se muestre correctamente", alwaysRun = true)
     public void demoBlazeTest() throws InterruptedException {
         LandingPage landingPage = new LandingPage(driver.getWebDriver());
         ProductDetailsPage productDetailsPage = new ProductDetailsPage(driver.getWebDriver());
@@ -29,6 +30,7 @@ public class DemoBlazeTest extends BaseTest {
         productDetailsPage.clickCartButton();
 
         //Cart Page
+        Assert.assertTrue(cartPage.isPagePresent(), "Cart Page present");
         Assert.assertTrue(cartPage.validateImage(), "Product Image present");
         Assert.assertTrue(cartPage.validateTitle(), "Product Title present");
         Assert.assertTrue(cartPage.validatePrice(), "Product Price present");

@@ -1,13 +1,30 @@
 package Pages;
 
-import Elements.ProductDetailsElements;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ProductDetailsPage extends BasePage {
 
-    protected ProductDetailsElements byElements = new ProductDetailsElements();
+    @FindBy(css = "h2[class='name']")
+    private WebElement productTitle;
+
+    @FindBy(css = "h3[class='price-container']")
+    private WebElement productPrice;
+
+    @FindBy(id = "myTabContent")
+    private WebElement productDescription;
+
+    @FindBy(id = "imgp")
+    private WebElement productImage;
+
+    @FindBy(css = "a[class='btn btn-success btn-lg']")
+    private WebElement addToCart;
+
+    @FindBy(id = "cartur")
+    private WebElement cartButton;
 
     public ProductDetailsPage(WebDriver driver) {
         super(driver);
@@ -15,7 +32,7 @@ public class ProductDetailsPage extends BasePage {
 
     public boolean isPagePresent() {
         try {
-            getFluentWait(60, 5).until(ExpectedConditions.visibilityOfElementLocated(byElements.productTitle));
+            getFluentWait(60, 5).until(ExpectedConditions.visibilityOf(productTitle));
             return true;
         }
         catch (TimeoutException e) {
@@ -24,27 +41,27 @@ public class ProductDetailsPage extends BasePage {
     }
 
     public boolean validateProductTitle() {
-        return driver.findElement(byElements.productTitle).isDisplayed();
+        return productTitle.isDisplayed();
     }
 
     public boolean validateProductPrice() {
-        return driver.findElement(byElements.productPrice).isDisplayed();
+        return productPrice.isDisplayed();
     }
 
     public boolean validateProductDescription() {
-        return driver.findElement(byElements.productDescription).isDisplayed();
+        return productDescription.isDisplayed();
     }
 
     public boolean validateProductImage() {
-        return driver.findElement(byElements.productImage).isDisplayed();
+        return productImage.isDisplayed();
     }
 
     public boolean validateAddToCart() {
-        return driver.findElement(byElements.addToCart).isDisplayed();
+        return addToCart.isDisplayed();
     }
 
     public void clickAddToCart() {
-        driver.findElement(byElements.addToCart).click();
+        addToCart.click();
     }
 
     public void manageWindow() {
@@ -53,6 +70,6 @@ public class ProductDetailsPage extends BasePage {
     }
 
     public void clickCartButton() {
-        driver.findElement(byElements.cartButton).click();
+        cartButton.click();
     }
 }

@@ -1,21 +1,20 @@
-import Pages.LandingPage;
+import Pages.BasePage;
 import Utilities.DriverSetup;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 
 public class BaseTest {
     DriverSetup driver;
+    private BasePage basePage;
 
-    private LandingPage landingPage;
-
-    @BeforeSuite
-    public void initTest() {
+    @BeforeTest(description = "Configuración de precondiciones para ejecución de pruebas", alwaysRun = true)
+    public void beforeTest() {
         driver = new DriverSetup();
-        landingPage = new LandingPage(driver.getWebDriver());
+        basePage = new BasePage(driver.getWebDriver());
     }
 
-    @AfterSuite
+    @AfterTest(description = "Método creado para cerrar el navegador", alwaysRun = true)
     public void endTest() {
-        landingPage.end();
+        basePage.end();
     }
 }

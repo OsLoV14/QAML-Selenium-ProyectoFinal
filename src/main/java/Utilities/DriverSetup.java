@@ -12,7 +12,8 @@ public class DriverSetup {
     private WebDriver driver;
 
     public DriverSetup() {
-        File chromeDriver = new File("C:\\Users\\OsLoV\\chromedriver.exe");
+        String ABS_PATH = new File("").getAbsolutePath();
+        File chromeDriver = new File(ABS_PATH + "\\webdrivers\\chromedriver.exe");
         System.setProperty("webdriver.chrome.driver", chromeDriver.getPath());
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--incognito");
